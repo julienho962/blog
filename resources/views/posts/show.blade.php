@@ -2,24 +2,8 @@
     Post
 @endsection
 <x-layout>
-    @include('_posts-header')
+    {{-- @include('posts._header') --}}
     <section class="px-6 py-8">
-        <nav class="md:flex md:justify-between md:items-center">
-            <div>
-                <a href="/">
-                    <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
-                </a>
-            </div>
-
-            <div class="mt-8 md:mt-0">
-                <a href="/" class="text-xs font-bold uppercase">Home Page</a>
-
-                <a href="#"
-                    class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">Subscribe
-                    for Updates</a>
-            </div>
-        </nav>
-
         <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
             <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
                 <div class="col-span-4 lg:text-center lg:pt-14 mb-10">
@@ -32,7 +16,7 @@
                     <div class="flex items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
                         <div class="ml-3 text-left">
-                            <h5 class="font-bold"><a href="/authors/{{$post->author->username}}"> {{$post->author->name}} </a></h5>
+                            <h5 class="font-bold"><a href="/?author={{$post->author->username}}"> {{$post->author->name}} </a></h5>
                         </div>
                     </div>
                 </div>
@@ -55,7 +39,7 @@
                         </a>
 
                         <div class="space-x-2">
-                            <x-category-botton :category="$post->category" />
+                            <x-category-botton :category="$post->category"/>
                         </div>
                     </div>
 
@@ -63,11 +47,16 @@
                         {{$post->title}}
                     </h1>
 
-                    <div class="space-y-4 lg:text-lg leading-loose">
-                        {!!$post->body!!}
-                    </div>
+                    <div class="space-y-4 lg:text-lg leading-loose">{!! $post->body !!}</div>
                 </div>
+                <section class="col-span-8 col-start-5 mt-10 space-y-6">
+                    <x-post-comment />
+                    <x-post-comment />
+                    <x-post-comment />
+                    <x-post-comment />
+                </section>
             </article>
+            
         </main>
     </section>
 </x-layout>

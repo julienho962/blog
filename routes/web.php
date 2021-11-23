@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\PostController;
-use App\Models\Category;
 use Illuminate\Support\Facades\Route;
-use App\Models\Post;
-use App\Models\User;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
-use Illuminate\Support\Facades\File;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SessionsController;
+
+//use Spatie\YamlFrontMatter\YamlFrontMatter;
+//use Illuminate\Support\Facades\File;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +22,10 @@ use Illuminate\Support\Facades\File;
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:slug}', [PostController::class, 'show'])->name('post');
+Route::get('register', [RegisterController::class, 'create'])->middleware('guest');
+Route::post('register', [RegisterController::class, 'store'])->middleware('guest');
 
-Route::get('authors/{author:username}', function (User $author) {
-    $posts = Post::where('user_id', $author->id)->latest()->get();
-    return view('posts', [
-        'posts' => $posts,
-        'categories' => Category::all()
-    ]);
-})->name('author');
+Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
+Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
+
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
