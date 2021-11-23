@@ -22,5 +22,6 @@ class PostController extends Controller
             'post' => $post,
        ]);
     }
+    //create edit index store destroy delete
 
 }
