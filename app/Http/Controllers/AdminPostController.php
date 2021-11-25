@@ -10,7 +10,7 @@ class AdminPostController extends Controller
     public function index()
     {
         return view('admin.posts.index', [
-            'posts' => Post::paginate(50)
+            'posts' => Post::latest()->paginate(50)
         ]);
     }
 
@@ -45,6 +45,8 @@ class AdminPostController extends Controller
 
     public function update(Post $post)
     {
+        //Symfony\Component\HttpFoundation\File\UploadedFile
+
         $attributes = request()->validate([
             'title' => 'required',
             'thumbnail' => 'image',
